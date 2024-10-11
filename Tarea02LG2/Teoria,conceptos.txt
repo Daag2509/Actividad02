@@ -1,0 +1,136 @@
+1. Ventajas y Desventajas de la Herencia
+Ventajas:
+
+Reutilización de Código: Permite reutilizar código existente, lo que reduce la duplicación y facilita el mantenimiento.
+
+Organización: Facilita la organización del código al permitir crear jerarquías de clases que reflejan 
+relaciones del mundo real.
+
+Polimorfismo: Permite tratar objetos de diferentes clases como si fueran del mismo tipo, 
+facilitando la implementación de funciones genéricas.
+
+
+Desventajas:
+
+Acoplamiento Fuerte: La herencia puede llevar a un acoplamiento fuerte entre clases, 
+lo que dificulta los cambios en una clase base sin afectar a las derivadas.
+
+Dificultad para Entender: Las jerarquías complejas pueden hacer que el código 
+sea difícil de entender y seguir.
+
+Problemas con Múltiples Herencias: En lenguajes que soportan herencia múltiple,
+ puede haber ambigüedades y conflictos en los métodos heredados.
+
+
+2. Herencia Múltiple
+Definición:
+La herencia múltiple es una característica de algunos lenguajes de 
+programación donde una clase puede heredar atributos y métodos de más de una clase base.
+
+Implementación en Python:
+En Python, se puede implementar la herencia múltiple simplemente listando 
+múltiples clases base entre paréntesis al definir una nueva clase.
+
+Ejemplo práctico:
+
+class A:
+    def method_a(self):
+        return "Método A"
+
+class B:
+    def method_b(self):
+        return "Método B"
+
+class C(A, B):  # Herencia múltiple
+    def method_c(self):
+        return "Método C"
+
+obj = C()
+print(obj.method_a())  # Salida: Método A
+print(obj.method_b())  # Salida: Método B
+print(obj.method_c())  # Salida: Método C
+
+
+
+3. Uso de super()
+Definición:
+La función super() se utiliza para llamar a métodos de una clase base desde una clase derivada.
+ Es especialmente útil en el contexto de la herencia para evitar problemas con el orden de resolución de métodos (MRO).
+
+Cuándo usar super():
+Se debe usar super() cuando se necesita extender o modificar el comportamiento de un método heredado
+ sin tener que referirse directamente a la clase base.
+
+Ejemplo práctico:
+
+class Base:
+    def __init__(self):
+        print("Inicializando Base")
+
+class Derivada(Base):
+    def __init__(self):
+        super().__init__()  # Llama al constructor de Base
+        print("Inicializando Derivada")
+
+obj = Derivada()
+# Salida:
+# Inicializando Base
+# Inicializando Derivada
+
+
+4. Composición en POO
+Definición:
+La composición es un principio en POO donde una clase está compuesta por uno o más objetos de otras clases.
+ Esto permite construir clases complejas utilizando componentes más simples.
+
+Ejemplo práctico:
+
+class Motor:
+    def start(self):
+        return "Motor encendido"
+
+class Coche:
+    def __init__(self):
+        self.motor = Motor()  # Composición
+
+    def start_car(self):
+        return self.motor.start()
+
+mi_coche = Coche()
+print(mi_coche.start_car())  # Salida: Motor encendido
+
+Agregación en POO
+Definición:
+La agregación es un tipo especial de asociación donde una clase contiene referencias a objetos de otra clase,
+ pero estos objetos pueden existir independientemente del objeto contenedor.
+
+Ejemplo práctico:
+
+class Estudiante:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+class Curso:
+    def __init__(self):
+        self.estudiantes = []  # Agregación
+
+    def agregar_estudiante(self, estudiante):
+        self.estudiantes.append(estudiante)
+
+est1 = Estudiante("Juan")
+est2 = Estudiante("Ana")
+
+curso = Curso()
+curso.agregar_estudiante(est1)
+curso.agregar_estudiante(est2)
+
+for est in curso.estudiantes:
+    print(est.nombre)  # Salida: Juan Ana
+
+5. Comparar y Contrastar
+Característica	Herencia	Composición	Agregación
+Relación	"Es un" (is-a)	"Tiene un" (has-a)	"Contiene" (contains)
+Acoplamiento	Fuerte	Débil	Débil
+Ciclo de Vida	Clases dependientes	Clases independientes	Clases independientes
+Reutilización	Alta mediante jerarquías	Alta mediante componentes	Moderada
+Flexibilidad	Menor debido a acoplamiento	Mayor debido a independencia	Mayor debido a independencia
